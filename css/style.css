@@ -61,10 +61,8 @@
   font-display: swap;
 }
 
-
-
 /* ==========================================================================
-   0. 리셋 및 글로벌 초기화 (오른쪽 스크롤바 숨김 유지)
+   0. 리셋 및 글로벌 초기화
    ========================================================================== */
 * {
   margin: 0;
@@ -95,9 +93,7 @@ body {
   width: 100%;
   color: #fff;
   background-color: #000;
-  /* 우측 스크롤러 안 뜨게 감추기 설정 */
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
   cursor: none;
 }
@@ -105,7 +101,6 @@ body {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari, Opera */
 }
 
 .custom-cursor {
@@ -119,7 +114,6 @@ body::-webkit-scrollbar {
   transform: translate(-50%, -50%);
 }
 
-
 .custom-cursor img {
   position: absolute;
   width: 100%;
@@ -127,13 +121,10 @@ body::-webkit-scrollbar {
   object-fit: contain;
 }
 
-
 .cursor-click {
   opacity: 0;
 }
 
-
-/* 클릭 상태 */
 .custom-cursor.active .cursor-default {
   opacity: 0;
 }
@@ -143,16 +134,14 @@ body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
-   1. [원복] 알약 칩스(Capsule) 모양 플로팅 내비게이션 바 스타일 & GNB 효과 35번 통합
+   1. 알약 내비게이션 바 스타일 & GNB 효과 35번 통합
    ========================================================================== */
 .capsule-nav {
   position: fixed;
   top: 20px;
-  /* 화면 상단에서 떨어뜨림 */
   left: 5%;
   right: 5%;
   width: 90%;
-  /* 좌우 여백 확보 */
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -164,7 +153,6 @@ body::-webkit-scrollbar {
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 40px;
-  /* 둥근 알약 칩스 형태 완성 */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
@@ -182,7 +170,6 @@ body::-webkit-scrollbar {
   font-weight: 600;
 }
 
-/* 📌 [포함] 모바일용 햄버거 토글 버튼 스타일 */
 .hamburger-btn {
   display: none;
   flex-direction: column;
@@ -199,16 +186,12 @@ body::-webkit-scrollbar {
   background-color: #fff;
 }
 
-/* --------------------------------------------------------------------------
-   ✨ SMN_effect-35 효과 커스텀 통합 (통통 튀는 키치 무빙)
-   -------------------------------------------------------------------------- */
 .SMN_effect-35 {
   display: flex;
 }
 
 .SMN_effect-35 a {
   display: block;
-  /* 애니메이션 transform이 정상 구동되도록 블록화 */
   overflow: visible;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
@@ -220,7 +203,6 @@ body::-webkit-scrollbar {
   padding: 10px 20px;
 }
 
-/* 35번 효과 핵심 키프레임 애니메이션 */
 @keyframes eff24-move {
   30% {
     -webkit-transform: translate3d(0, -7px, 0) rotate(6deg);
@@ -243,10 +225,8 @@ body::-webkit-scrollbar {
   }
 }
 
-/* 마우스 호버 시 1회 튕기는 액션 발동 */
 .SMN_effect-35 a:hover {
   color: #A7E400;
-  /* 💡 호버 시 GETCHA 브랜드 컬러인 라임색으로 위트 있게 변경 */
   -webkit-animation-name: eff24-move;
   animation-name: eff24-move;
   -webkit-animation-duration: .4s;
@@ -257,7 +237,6 @@ body::-webkit-scrollbar {
   animation-iteration-count: 1;
 }
 
-/* 모바일 슬라이드 오버레이 메뉴 기본 레이아웃 */
 .slide-menu {
   position: fixed;
   top: 0;
@@ -280,7 +259,6 @@ body::-webkit-scrollbar {
   cursor: none;
 }
 
-/* 모바일 슬라이드 안의 메뉴 링크 간격 정돈 */
 .slide-links.SMN_effect-35 a {
   display: block;
   color: #fff;
@@ -290,39 +268,29 @@ body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
-   2. [수정] 히어로 배너 섹션 (자식 요소 스타일 완전 제거)
+   2. 히어로 배너 섹션 스타일
    ========================================================================== */
 .hero-wrapper {
   position: relative;
   width: 100%;
   height: 100vh;
-  /* 화면 전체 높이 고정 */
   overflow: hidden;
-  /* 자식 비디오가 절대 영역 밖으로 삐져나가지 못하도록 강제 격리 */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #000;
-  /* 영상 로드 전 백그라운드 블랙 처리 */
 }
 
 .hero-wrapper video {
   width: 100%;
   height: 100%;
-  /* 📌 핵심: 종횡비를 유지하면서 화면에 꽉 차게 채우고, 넘치는 부분은 깔끔하게 잘라냄 */
   object-fit: cover;
   object-position: center;
-  /* 영상의 정중앙이 항상 기준이 되도록 고정 */
 }
 
 /* ==========================================================================
-   3. 브랜드 인트로 섹션 (패러랙스 타이포 + 피그마 4열 배치)
+   3. 브랜드 인트로 섹션
    ========================================================================== */
-
-#brand-intro {
-  height: 1080px;
-}
-
 .brand-intro {
   padding: 120px 5%;
   position: relative;
@@ -330,6 +298,9 @@ body::-webkit-scrollbar {
   flex-direction: column;
   align-items: center;
   background: transparent;
+  width: 100%;
+  height: auto;
+  min-height: 1080px;
 }
 
 .parallax__item__num {
@@ -361,13 +332,12 @@ body::-webkit-scrollbar {
   border-radius: 15px;
 }
 
-/* 피그마 연동 4열 그리드 */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1320px;
   margin-bottom: 15px;
 }
 
@@ -379,22 +349,17 @@ body::-webkit-scrollbar {
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 40px 25px;
   border-radius: 20px;
-  /* 부드러운 글자 색상 전환 */
   transition: color 0.45s, border-color 0.45s;
 }
 
-/* 카드 내부 콘텐츠 래퍼 (물방울 위로 글자가 올라오도록 z-index 설정) */
 .intro-card .card-content {
   position: relative;
   z-index: 2;
   pointer-events: none;
-  /* 호버 간섭 방지 */
 }
 
-/* [추가] 카드 호버 시 전체 배경이 물방울로 가득 차면서 글자색 변경 */
 .intro-card:hover {
   color: #000;
-  /* 라임색 배경 위에서 글자가 잘 보이도록 검은색 변경 */
   border-color: #A7E400;
 }
 
@@ -427,12 +392,10 @@ body::-webkit-scrollbar {
   gap: 12px;
 }
 
-/* 카드 호버 시 내부 물방울들 동시에 위로 전개 */
 .intro-card:hover .btn-bubble-item {
   transform: translateZ(0) scale(1.7);
 }
 
-/* 공통 구조 연동: 카드 내부에 배치된 물방울 박스 정의 */
 .intro-card .btn-bubble-inner {
   z-index: 1;
   overflow: hidden;
@@ -447,7 +410,6 @@ body::-webkit-scrollbar {
   position: relative;
   display: block;
   height: 100%;
-  /* 기존 svg 버블 필터 효과 결합 */
   -webkit-filter: url(#bubble-start);
   filter: url(#bubble-start);
 }
@@ -456,18 +418,14 @@ body::-webkit-scrollbar {
   position: absolute;
   top: 0;
   width: 30%;
-  /* 카드는 버튼보다 넓으므로 범위를 살짝 넓힘 */
   height: 100%;
   background: #A7E400;
   border-radius: 100%;
   -webkit-transform: translate3d(0, 150%, 0) scale(1.7);
   transform: translate3d(0, 150%, 0) scale(1.7);
-  -webkit-transition: -webkit-transform 0.45s;
-  transition: -webkit-transform 0.45s;
   transition: transform 0.45s;
 }
 
-/* 카드의 넓은 면적에 맞춰 물방울들이 분산되어 배치되도록 위치 및 시차(delay) 설정 */
 .intro-card .btn-bubble-item:nth-of-type(1) {
   left: -5%;
   transition-delay: 0s;
@@ -496,18 +454,15 @@ body::-webkit-scrollbar {
   text-align: center;
   padding: 0px 40px;
   line-height: 41px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 23px !important;
   background: transparent;
   font-size: 16px;
-  -webkit-transition: color 0.45s;
   transition: color 0.45s;
   color: #A7E400;
   border: 2px solid #A7E400;
   font-weight: 500;
 }
-
 
 .btn-bubble .btn-bubble-inner {
   z-index: -1;
@@ -527,9 +482,8 @@ body::-webkit-scrollbar {
   filter: url(#bubble-start);
 }
 
-
 /* ==========================================================================
-   ✨ [추가] 모드 추천 팝업창 모달 디자인 (Glassmorphism 테마)
+   팝업창 모달 디자인 (Glassmorphism 테마)
    ========================================================================== */
 .modal-overlay {
   position: fixed;
@@ -541,7 +495,6 @@ body::-webkit-scrollbar {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 9999;
-  /* 💡 가로 스크롤 및 GNB 레이어보다 항상 위에 뜨도록 설정 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -550,7 +503,6 @@ body::-webkit-scrollbar {
   transition: opacity 0.4s ease;
 }
 
-/* 팝업 활성화 상태 스위칭 클래스 */
 .modal-overlay.show {
   opacity: 1;
   pointer-events: auto;
@@ -588,7 +540,6 @@ body::-webkit-scrollbar {
   color: #A7E400;
 }
 
-/* 팝업 내부 뷰포트 전환용 */
 .modal-step {
   display: none;
 }
@@ -614,7 +565,6 @@ body::-webkit-scrollbar {
   font-size: 1.8rem;
   font-weight: 900;
   color: #A7E400;
-  /* GETCHA 라임색 포인트 */
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
@@ -627,7 +577,6 @@ body::-webkit-scrollbar {
   margin-bottom: 35px;
 }
 
-/* 팝업 선택지 버튼 스타일링 */
 .modal-options {
   display: flex;
   flex-direction: column;
@@ -656,7 +605,6 @@ body::-webkit-scrollbar {
   font-weight: 700;
 }
 
-/* 결과 출력 영역 */
 .result-display {
   padding: 20px 0;
 }
@@ -705,14 +653,11 @@ body::-webkit-scrollbar {
   color: #fff;
 }
 
-/* filter 속성을 지원하는 브라우저인 경우에만 내부 스타일을 실행합니다 */
 @supports (-webkit-filter: url("#bubble-start")) or (filter: url("#bubble-start")) {
-
   .btn-bubble .btn-bubble-item {
     -webkit-transform: translate3d(0, 150%, 0) scale(1.4);
     transform: translate3d(0, 150%, 0) scale(1.4);
   }
-
 }
 
 .btn-bubble .btn-bubble-item {
@@ -724,33 +669,26 @@ body::-webkit-scrollbar {
   border-radius: 100%;
   -webkit-transform: translate3d(0, 150%, 0) scale(1.7);
   transform: translate3d(0, 150%, 0) scale(1.7);
-  -webkit-transition: -webkit-transform 0.45s;
-  transition: -webkit-transform 0.45s;
-  transition: transform 0.45s;
   transition: transform 0.45s, -webkit-transform 0.45s;
 }
 
 .btn-bubble .btn-bubble-item:nth-of-type(1) {
   left: 0%;
-  -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
 
 .btn-bubble .btn-bubble-item:nth-of-type(2) {
   left: 30%;
-  -webkit-transition-delay: 0.08s;
   transition-delay: 0.08s;
 }
 
 .btn-bubble .btn-bubble-item:nth-of-type(3) {
   left: 60%;
-  -webkit-transition-delay: 0.16s;
   transition-delay: 0.16s;
 }
 
 .btn-bubble .btn-bubble-item:nth-of-type(4) {
   left: 90%;
-  -webkit-transition-delay: 0.24s;
   transition-delay: 0.24s;
 }
 
@@ -792,97 +730,316 @@ body::-webkit-scrollbar {
   justify-content: space-between;
 }
 
-.left-typo {
+.left-typo>h1 {
   font-size: 6vw;
   font-weight: 900;
 }
 
-/* 부모 박스는 마우스 감지(트리거) 역할만 하며, 크기가 변하지 않습니다 */
+.left-typo>h3 {
+  font-size: 2vw;
+  font-weight: 700;
+}
+
 .right-img {
   width: 30vw;
   height: 40vw;
   perspective: 1000px;
-  /* 3D 회전 시 입체감을 주는 속성입니다 */
   cursor: none;
 }
 
-/* 실제 애니메이션은 자식인 img 태그에만 부여합니다 */
 .right-img img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 30px;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  /* 이징을 추가해 더 부드럽게 */
   transform-style: preserve-3d;
 }
 
-/* ★핵심: 부모(.right-img)에 호버했을 때, 자식(img)이 돌아가도록 수정합니다 */
 .right-img:hover img {
   transform: rotateY(180deg);
 }
 
-/* [삭제 및 대체] 기존의 잘못된 .right-img:hover .page1 코드를 제거하고 
-   제이쿼리 함수 액션과 매칭될 각 페이지별 호버 배경색을 새롭게 정의합니다. */
 .panel.page1 {
-
-  background: url(../images/ssock_coffee.jpeg) no-repeat center/cover;
+  background: url(../images/ssock\ banner.jpeg) no-repeat center/cover;
 }
 
-.panel.page1.active-hover {
-  transition: all 0.3s ease-in-out;
-}
-
-/* 쏙: 블루 */
 .panel.page2 {
-  background: url(../images/gguk_tea.jpeg) no-repeat center/cover;
-
+  background: url(../images/gguk\ banner.jpeg) no-repeat center/cover;
 }
 
-.panel.page2.active-hover {
-  transition: all 0.3s ease-in-out;
-}
-
-/* 꾹: 그린 */
 .panel.page3 {
-  background: url(../images/pot_muffine.jpeg) no-repeat center/cover;
-
+  background: url(../images/pot\ banner.jpeg) no-repeat center/cover;
 }
 
-.panel.page3.active-hover {
-  transition: all 0.3s ease-in-out;
-  background-color: #FFAA00;
-}
-
-/* 팟: 오렌지 */
 .panel.page4 {
-  background: url(../images/syuk_protein02.jpeg) no-repeat center/cover;
-
-}
-
-.panel.page4.active-hover {
-  transition: all 0.3s ease-in-out;
-  background-color: #FF4500;
-}
-
-/* 슉: 핑크 */
-
-.right-img img {
-  width: 30vw;
-  height: 40vw;
-  object-fit: contain;
-  border-radius: 30px;
+  background: url(../images/syuk\ banner.jpeg) no-repeat center/cover;
 }
 
 /* ==========================================================================
-   5. 콜라주 섹션 & 푸터 스타일
+   5. 베스트셀러 상품 전시 섹션 (페이지네이션 및 More 패널 내재화)
    ========================================================================== */
-.collage-section {
-  padding: 120px 5%;
+#product-display {
+  position: relative;
+  width: 100%;
+  padding: 100px 6%;
+  box-sizing: border-box;
+  z-index: 2;
+  overflow: hidden;
+  background-color: #efffc2;
+}
+
+.product-display-container {
+  display: flex;
+  width: 100%;
+  max-width: 1320px;
+  gap: 50px;
+  align-items: stretch;
+}
+
+.product-display-container>.title h1 {
+  color: #2b2b2b;
+}
+
+.product-display-container>.title p {
+  color: #A7E400;
+}
+
+.product-left-marquee {
+  flex: 0 0 40%;
+  position: sticky;
+  top: 140px;
+  height: auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.product-left-marquee .mySwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.product-left-marquee .swiper-wrapper {
+  height: 100%;
+}
+
+.product-left-marquee .swiper-slide {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-left-marquee .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.product-right-grid-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
   width: 100%;
 }
 
+.prod-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s;
+}
+
+.prod-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(167, 228, 0, 0.15);
+  border-color: rgba(167, 228, 0, 0.3);
+}
+
+.prod-img-box {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+  background-color: #151515;
+}
+
+.prod-img-box img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.prod-front {
+  opacity: 1;
+  z-index: 2;
+}
+
+.prod-back {
+  opacity: 0;
+  z-index: 1;
+  transform: scale(1.03);
+}
+
+.prod-card:hover .prod-front {
+  opacity: 0;
+}
+
+.prod-card:hover .prod-back {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.prod-cart-overlay {
+  position: absolute;
+  left: 0;
+  bottom: -60px;
+  width: 100%;
+  height: 30px;
+  background: rgba(167, 228, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.prod-card:hover .prod-cart-overlay {
+  bottom: 0;
+}
+
+.cart-btn {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cart-icon {
+  width: 26px;
+  height: 26px;
+  color: #000000;
+}
+
+.prod-meta {
+  padding: 18px 15px 30px 15px;
+  background: #2B2B2B;
+}
+
+.prod-name {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.prod-price {
+  font-size: 0.95rem;
+  color: #A7E400;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   페이지네이션 및 More 패널 정렬 코어
+   -------------------------------------------------------------------------- */
+.product-control-panel {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 40px;
+  padding: 10px 0;
+}
+
+.prod-pagination {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(43, 43, 43, 0.9);
+  padding: 10px 25px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.prod-pagination .page-num {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s;
+  padding: 0 4px;
+}
+
+.prod-pagination .page-num.active,
+.prod-pagination .page-num:hover {
+  color: #A7E400;
+  font-weight: 800;
+}
+
+.prod-pagination .page-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0 5px;
+  transition: color 0.3s;
+}
+
+.prod-pagination .page-btn:hover {
+  color: #A7E400;
+}
+
+/* 우측 정중앙 가둠 레이아웃 처리 */
+.prod-more-wrap {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+}
+
+.text-more {
+  border-color: #2b2b2b !important;
+  color: #2b2b2b !important;
+}
+
+.text-more .btn-bubble-item {
+  background: #2b2b2b !important;
+}
+
+.text-more:hover {
+  color: #fff !important;
+}
+
+/* ==========================================================================
+   6. 콜라주 섹션 & 푸터 스타일
+   ========================================================================== */
 .collage-container {
+  padding: 120px 5%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
@@ -925,13 +1082,10 @@ body::-webkit-scrollbar {
 
 .sticker-badge {
   position: absolute;
-  /* padding: 12px 24px; */
   border-radius: 50px;
-  /* font-weight: bold; */
 }
 
 .text-sticker {
-  /* background: #A7E400; */
   color: #000;
   bottom: 60px;
   right: 30px;
@@ -1015,7 +1169,7 @@ body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
-   6. 우측 하단 고정 방사형 메뉴 (FAB) 잘림 방지 개방형 레이아웃
+   7. 우측 하단 고정 방사형 메뉴 (FAB) 레이아웃
    ========================================================================== */
 .fab-wrap {
   position: fixed;
@@ -1063,7 +1217,7 @@ body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
-   7. 미디어 쿼리 (태블릿 1100px / 모바일 600px 브레이크포인트)
+   8. 반응형 미디어 쿼리 (1100px / 600px 브레이크포인트 오버라이딩)
    ========================================================================== */
 @media (max-width: 1100px) {
   .card-grid {
@@ -1086,6 +1240,45 @@ body::-webkit-scrollbar {
 
   .collage-item.wide {
     height: 350px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .product-display-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .product-left-marquee {
+    width: 100%;
+    flex: none;
+    position: relative;
+    top: 0;
+    height: 400px;
+  }
+}
+
+@media (max-width: 650px) {
+  .product-left-marquee {
+    height: 100%;
+  }
+
+  .product-right-grid {
+    grid-template-columns: (2, 1fr);
+    gap: 20px;
+  }
+
+  .product-control-panel {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .prod-more-wrap {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
   }
 }
 
@@ -1112,11 +1305,34 @@ body::-webkit-scrollbar {
     display: flex;
   }
 
+  .slide-links.SMN_effect-35 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .slide-links.SMN_effect-35 a {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-bottom: 0;
+    padding: 12px 0;
+    font-size: 1.6rem;
+  }
+
+  /* 📌 핵심: 모바일 겹침 복원용 높이 초기화 및 패딩 전개 */
+  .brand-intro {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 100px 5% 40px 5%;
+  }
+
   .card-grid {
     grid-template-columns: 1fr;
   }
 
-  /* 모바일 가로 핀 해제 및 세로 전환 오버라이딩 */
   .scroll-container {
     display: block;
     width: 100%;
@@ -1170,287 +1386,5 @@ body::-webkit-scrollbar {
 
   .footer-newsletter input {
     width: 100%;
-  }
-}
-
-/* ==========================================================================
-   추가된 상품 전시 섹션 (#product-display) - 좌/우 분할 레이아웃
-   ========================================================================== */
-#product-display {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 6%;
-  background: transparent;
-  /* Granim 그라데이션 배경 투과 유지 */
-  box-sizing: border-box;
-  z-index: 2;
-  overflow: hidden;
-}
-
-/* 좌측 슬라이더와 우측 그리드를 감싸는 2분할 플렉스 컨테이너 */
-.product-display-container {
-  display: flex;
-  width: 100%;
-  max-width: 1440px;
-  gap: 60px;
-  align-items: flex-start;
-}
-
-/* --------------------------------------------------------------------------
-   👈 왼쪽 컨텐츠 영역: 텍스트 오토 슬라이더 (Marquee)
-   -------------------------------------------------------------------------- */
-.product-left-marquee {
-  flex: 0 0 35%;
-  /* 왼쪽 영역 너비 35% 고정 */
-  position: sticky;
-  top: 150px;
-  /* 스크롤 시 텍스트 슬라이더가 화면에 달라붙어 머무는 효과 */
-  overflow: hidden;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #444;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ==========================================================================
-   [최종 보정] 좌측 Swiper 높이 = 우측 상품 그리드 높이 동기화 레이아웃
-   ========================================================================== */
-#product-display {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 100px 6%;
-  background: transparent;
-  box-sizing: border-box;
-  z-index: 2;
-  overflow: hidden;
-}
-
-.product-display-container {
-  display: flex;
-  width: 100%;
-  max-width: 1300px;
-  gap: 50px;
-  /* 📌 핵심 1: align-items: stretch를 통해 좌측 Swiper 박스가 
-     우측 그리드가 차지하는 세로 총길이만큼 자동으로 늘어나도록 강제합니다. */
-  align-items: stretch;
-}
-
-/* --------------------------------------------------------------------------
-   👈 좌측 컨텐츠 영역: 우측 그리드 높이에 종속되는 Swiper 프레임
-   -------------------------------------------------------------------------- */
-.product-left-marquee {
-  flex: 0 0 40%;
-  position: sticky;
-  top: 140px;
-
-  /* 📌 핵심 2: 기존 고정 px 높이(520px 등)를 과감히 제거하고,
-     부모(.product-display-container)가 강제로 늘려준 높이를 100% 흡수합니다. */
-  height: auto;
-
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* Swiper의 모든 내부 래퍼와 슬라이드도 부모 높이를 100% 채우도록 순차 상속 */
-.product-left-marquee .mySwiper {
-  width: 100%;
-  height: 100%;
-}
-
-.product-left-marquee .swiper-wrapper {
-  height: 100%;
-}
-
-.product-left-marquee .swiper-slide {
-  width: 100%;
-  height: 100%;
-  background: #111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 이미지가 늘어난 높이에 맞춰 찌그러지지 않고 꽉 차게 조절 */
-.product-left-marquee .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* --------------------------------------------------------------------------
-   👉 우측 컨텐츠 영역: 전체 높이의 기준이 되는 2*2 그리드 (변동 없음)
-   -------------------------------------------------------------------------- */
-.product-right-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-}
-
-.prod-card {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s;
-}
-
-.prod-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(167, 228, 0, 0.15);
-  border-color: rgba(167, 228, 0, 0.3);
-}
-
-.prod-img-box {
-  position: relative;
-  width: 100%;
-  padding-top: 80%;
-  /* 정방형 크기 유지 */
-  overflow: hidden;
-  background-color: #151515;
-}
-
-.prod-img-box img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.prod-front {
-  opacity: 1;
-  z-index: 2;
-}
-
-.prod-back {
-  opacity: 0;
-  z-index: 1;
-  transform: scale(1.03);
-}
-
-.prod-card:hover .prod-front {
-  opacity: 0;
-}
-
-.prod-card:hover .prod-back {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.prod-cart-overlay {
-  position: absolute;
-  left: 0;
-  bottom: -60px;
-  width: 100%;
-  height: 55px;
-  background: rgba(167, 228, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.prod-card:hover .prod-cart-overlay {
-  bottom: 0;
-}
-
-.cart-btn {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.cart-icon {
-  width: 26px;
-  height: 26px;
-  color: #000000;
-}
-
-.prod-meta {
-  padding: 18px 15px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.prod-name {
-  font-family: 'Paperozi', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-
-.prod-price {
-  font-size: 0.95rem;
-  color: #A7E400;
-  font-weight: 700;
-}
-
-/* --------------------------------------------------------------------------
-   📱 반응형 모드 브레이크 포인트 예외 보정
-   -------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
-  .product-display-container {
-    flex-direction: column;
-    /* 태블릿/모바일에서는 높이를 동기화하면 세로로 너무 길어지므로 stretch를 해제합니다 */
-    align-items: center;
-    gap: 30px;
-  }
-
-  .product-left-marquee {
-    width: 100%;
-    flex: none;
-    position: relative;
-    top: 0;
-    height: 400px;
-    /* 모바일 전용 독립 높이로 복귀 */
-  }
-}
-
-@media (max-width: 650px) {
-  .product-right-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
 }
