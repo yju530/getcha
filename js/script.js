@@ -1,17 +1,17 @@
 $(function () {
   /* ==========================================================================
-     2. 제이쿼리 모바일 햄버거 토글 개폐 바인딩
+     1. 제이쿼리 모바일 햄버거 토글 개폐 바인딩
      ========================================================================== */
   $('#slide-open').on('click', function () { $('#slide').css('right', '0'); });
   $('#slide-close, .slide-links a').on('click', function () { $('#slide').css('right', '-100%'); });
 
   /* ==========================================================================
-     3. GSAP ScrollTrigger 플러그인 등록
+     2. GSAP ScrollTrigger 플러그인 등록
      ========================================================================== */
   gsap.registerPlugin(ScrollTrigger);
 
   /* ==========================================================================
-     4. 스마트 반응형 가로 스크롤 매칭 엔진 (PC: 가로 고정 / 모바일: 세로 자동해제)
+     3. 스마트 반응형 가로 스크롤 매칭 엔진 (PC: 가로 고정 / 모바일: 세로 자동해제)
      ========================================================================== */
   let hScrollTrigger;
   function initHorizontalScroll() {
@@ -44,7 +44,7 @@ $(function () {
   initHorizontalScroll();
 
   /* ==========================================================================
-     5. 우측 하단 고정 방사형 메뉴 (Radial FAB) 스프링 인터랙션
+     4. 우측 하단 고정 방사형 메뉴 (Radial FAB) 스프링 인터랙션
      ========================================================================== */
   let menuActive = false;
   const $mainBtn = $('.fab-main-btn');
@@ -82,9 +82,8 @@ $(function () {
     }
   });
 
-
   /* ==========================================================================
-       GNB 메뉴 클릭 시 가로/세로 섹션별 스마트 부드러운 스크롤 인터랙션
+     5. GNB 메뉴 클릭 시 가로/세로 섹션별 스마트 부드러운 스크롤 인터랙션
      ========================================================================== */
   $('.nav-links a, .slide-links a').on('click', function (e) {
     e.preventDefault();
@@ -117,6 +116,24 @@ $(function () {
     if ($('#slide').css('right') === '0px') {
       $('#slide').css('right', '-100%');
     }
+  });
+
+  /* ==========================================================================
+     6. 상품 섹션 우측 페이지네이션 제어 바인딩
+     ========================================================================== */
+  $('.prod-pagination').on('click', '.page-num', function () {
+    $('.prod-pagination .page-num').removeClass('active');
+    $(this).addClass('active');
+    console.log("선택된 상품 페이지: ", $(this).text());
+  });
+
+  /* ==========================================================================
+     ✨ [추가 반영] 상품 하단 More 버튼 클릭 동작 완전 무력화 리스너
+     ========================================================================== */
+  $('.text-more').on('click', function (e) {
+    e.preventDefault(); // 기본 링크 튕김 현상 원천 봉쇄
+    e.stopPropagation(); // 부모 엘리먼트로의 이벤트 버블링 전파 차단
+    // 아무런 팝업 및 모달 로직을 수행하지 않아 온전한 공백 상태를 유지합니다.
   });
 
 }); // 메인 레디 구문 종료
@@ -169,11 +186,10 @@ $('.right-img').on('mouseleave', function () {
   $(this).closest('.panel').removeClass('active-hover');
 });
 
-// ==========================================================================
-// 5. ✨ [정상 교정] 모드 추천 팝업창 연동 제어 엔진 (HTML 버블 클래스 원형 보존)
-// ==========================================================================
 
-// 설명(desc) 데이터에 문단 나누기를 위한 <br> 태그 반영 수립
+// ==========================================================================
+// 모드 추천 팝업창 연동 제어 엔진 (기존 인트로 섹션 What's my mode? 전용)
+// ==========================================================================
 const modeDataMapping = {
   ssock: {
     title: "쏙 모드 (SSOCK)",
@@ -198,116 +214,78 @@ const modeDataMapping = {
 };
 
 const $modeModal = $('#mode-modal');
-const $whatsMyModeBtn = $('.btn-bubble'); // 기존 인트로 하단 무변형 버튼 타겟팅
+const $whatsMyModeBtn = $('.brand-intro .btn-bubble'); // 브랜드 인트로 섹션 버튼만 한정 타겟팅하여 간섭 분리
 
-// [A] "What's my mode?" 버튼 클릭 시 팝업 액티브 활성화
 $whatsMyModeBtn.on('click', function (e) {
-  e.preventDefault(); // 상단 튕김 현상 억제
+  e.preventDefault(); 
   $('#modal-step-result').removeClass('active');
   $('#modal-step-question').addClass('active');
   $modeModal.addClass('show');
 });
 
-// [B] X 단추 및 바깥 여백 오버레이 클릭 시 모달 감추기
 $('#modal-close-btn, #mode-modal').on('click', function (e) {
   if (e.target === this) {
     $modeModal.removeClass('show');
   }
 });
 
-// [C] 4개 선택지 문항 클릭 핸들러 (html 메서드 보정 처리 적용)
 $('.option-btn').on('click', function () {
   const selectedModeKey = $(this).data('mode');
   const finalResult = modeDataMapping[selectedModeKey];
 
   if (finalResult) {
-    // 결과 컨포넌트에 알맞은 이미지 주입
     $('#result-img').attr('src', finalResult.img);
     $('#result-title').text(finalResult.title);
-
-    // 📌 핵심: .text()를 .html()로 변경하여 <br> 문단 쪼개기 효과 강제 활성화
     $('#result-desc').html(finalResult.desc);
 
-    // 질문 노드를 가리고 결과 보기 노드 오픈 스위칭
     $('#modal-step-question').removeClass('active');
     $('#modal-step-result').addClass('active');
   }
 });
 
-// [D] 테스트 리트라이 돌려놓기 버튼
 $('#modal-retry-btn').on('click', function () {
   $('#modal-step-result').removeClass('active');
   $('#modal-step-question').addClass('active');
 });
 
-// =================================
-// Custom Mouse Cursor
-// =================================
 
+// ==========================================================================
+// Custom Mouse Cursor 인터랙션
+// ==========================================================================
 const cursor = document.querySelector(".custom-cursor");
 
-
 document.addEventListener("mousemove", e => {
-
   gsap.to(cursor, {
     x: e.clientX,
     y: e.clientY,
     duration: 0.15,
     ease: "power2.out"
   });
-
 });
 
+document.addEventListener("mousedown", () => { cursor.classList.add("active"); });
+document.addEventListener("mouseup", () => { cursor.classList.remove("active"); });
 
-// 클릭 시 이미지 변경
-document.addEventListener("mousedown", () => {
-
-  cursor.classList.add("active");
-
-});
-
-
-document.addEventListener("mouseup", () => {
-
-  cursor.classList.remove("active");
-
-});
-const hoverTargets = document.querySelectorAll(
-  "a, button, .right-img, .intro-card"
-);
-
+const hoverTargets = document.querySelectorAll("a, button, .right-img, .intro-card, .page-num, .page-btn");
 
 hoverTargets.forEach(item => {
-
-
-  item.addEventListener("mouseenter", () => {
-
-    cursor.classList.add("active");
-
-  });
-
-
-  item.addEventListener("mouseleave", () => {
-
-    cursor.classList.remove("active");
-
-  });
-
-
+  item.addEventListener("mouseenter", () => { cursor.classList.add("active"); });
+  item.addEventListener("mouseleave", () => { cursor.classList.remove("active"); });
 });
+
 
 // ==========================================================================
 // 상품 섹션 좌측 Swiper 인스턴스 초기화 보정
 // ==========================================================================
 var swiper = new Swiper(".mySwiper", {
-  loop: true,               /* 📌 무한 슬라이드 활성화 */
-  speed: 800,               /* 슬라이드 전환 속도 (밀리초) */
+  loop: true,
+  speed: 800,
   centeredSlides: true,
   autoplay: {
-    delay: 3000,            /* 3초마다 자동 롤링 */
-    disableOnInteraction: false, /* 유저가 터치하더라도 오토플레이 멈춤 방지 */
+    delay: 3000,
+    disableOnInteraction: false,
   },
-  effect: "fade",           /* 💡 슬라이드 대신 페이드 효과를 주면 룩북 느낌이 한층 살아납니다 (원치 않으시면 이 줄을 지우세요) */
+  effect: "fade",
   fadeEffect: {
     crossFade: true
   }
