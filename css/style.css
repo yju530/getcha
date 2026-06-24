@@ -92,9 +92,9 @@ body {
   font-family: 'Paperozi';
   width: 100%;
   color: #fff;
-  background-color: #000;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  background-color: #efffc2;
   cursor: none;
 }
 
@@ -301,6 +301,7 @@ body::-webkit-scrollbar {
   width: 100%;
   height: auto;
   min-height: 1080px;
+  background-color: #000;
 }
 
 .parallax__item__num {
@@ -384,6 +385,7 @@ body::-webkit-scrollbar {
   font-size: 0.95rem;
   line-height: 1.6;
   opacity: 0.7;
+  font-weight: 300;
 }
 
 .hashtag {
@@ -730,6 +732,10 @@ body::-webkit-scrollbar {
   justify-content: space-between;
 }
 
+.left-typo {
+  text-shadow: 0px 0px 5px #00000085;
+}
+
 .left-typo>h1 {
   font-size: 6vw;
   font-weight: 900;
@@ -738,6 +744,12 @@ body::-webkit-scrollbar {
 .left-typo>h3 {
   font-size: 2vw;
   font-weight: 700;
+  margin-top: 4px;
+}
+
+.left-typo>p {
+  margin-top: 6px;
+
 }
 
 .right-img {
@@ -777,6 +789,107 @@ body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
+   product_banner 섹션 및 모바일 반응형 이미지 스위칭
+   ========================================================================== */
+#product_banner {
+  width: 100%;
+  margin: 80px auto;
+  color: #2B2B2B;
+  text-align: center;
+}
+
+#product_banner>h1 {
+  margin-bottom: 32px;
+  font-size: 40px;
+  display: inline-block;
+}
+
+#product_banner>h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #A7E400;
+  transition: width 0.3s ease-in-out;
+}
+
+#product_banner:hover h1::after {
+  width: 100%;
+}
+
+/* Swiper 슬라이드 컨테이너 크기 고정 (원하는 배너 높이 지정) */
+#product_banner .mySwiper {
+  width: 100%;
+  /* 📌 기존 1660px 고정을 풀고 부모 너비에 맞춤 */
+  max-width: 1660px;
+  /* 📌 최대 PC 해상도 한계선 방어 */
+  height: 260px;
+  /* PC 버전 배너 적정 높이 */
+  margin: 0 auto;
+}
+
+/* 개별 슬라이드 공통 배경 스펙 */
+#product_banner .swiper-slide {
+  width: 100%;
+  height: 100%;
+  /* 📌 부모 높이를 그대로 상속받도록 처리 */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* 이미지가 비율을 유지하며 꽉 차도록 처리 */
+}
+
+/* [PC 버전 배너 이미지 경로 지정] */
+#product_banner .product01 {
+  background-image: url('../images/겟차 배너01.jpg');
+}
+
+#product_banner .product02 {
+  background-image: url('../images/겟차 배너02.jpg');
+}
+
+#product_banner .product03 {
+  background-image: url('../images/겟차 배너03.jpg');
+}
+
+#product_banner .product04 {
+  background-image: url('../images/겟차 배너04.jpg');
+}
+
+
+/* 📌 미디어 쿼리: 모바일 600px 이하 대응 */
+@media (max-width: 600px) {
+  #product_banner .mySwiper {
+    width: 90%;
+    /* 📌 좌우 여백을 주어 화면 밖으로 절대 안 터지게 조절 (꽉 채우려면 100%) */
+    height: auto;
+    /* 📌 고정 높이를 해제하여 비율에 맞게 유동적으로 변하게 설정 */
+
+    /* 📌 [핵심] 준비하신 모바일 배너 이미지(가로 540, 세로 675)의 종횡비 자동 연산 구문 */
+    aspect-ratio: 540 / 675;
+  }
+
+  /* [모바일 버전 배너 이미지 경로로 스위칭] */
+  #product_banner .product01 {
+    background-image: url('../images/겟차\ 모바일\ 배너01.jpg');
+  }
+
+  #product_banner .product02 {
+    background-image: url('../images/겟차\ 모바일\ 배너02.jpg');
+  }
+
+  #product_banner .product03 {
+    background-image: url('../images/겟차\ 모바일\ 배너03.jpg');
+  }
+
+  #product_banner .product04 {
+    background-image: url('../images/겟차\ 모바일\ 배너04.jpg');
+  }
+}
+
+/* ==========================================================================
    5. 베스트셀러 상품 전시 섹션 (페이지네이션 및 More 패널 내재화)
    ========================================================================== */
 #product-display {
@@ -786,7 +899,11 @@ body::-webkit-scrollbar {
   box-sizing: border-box;
   z-index: 2;
   overflow: hidden;
-  background-color: #efffc2;
+
+  /* 📌 추가 보정: 부모 섹션 차원에서 내부 컨텐츠를 무조건 가로 정중앙 센터링 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-display-container {
@@ -795,14 +912,19 @@ body::-webkit-scrollbar {
   max-width: 1320px;
   gap: 50px;
   align-items: stretch;
+
+  /* 📌 핵심 보정: 블록 요소 자체를 화면 정중앙으로 밀착 정렬 */
+  margin: 80px auto;
+  padding: 12px;
 }
 
 .product-display-container>.title h1 {
   color: #2b2b2b;
+  font-weight: 700;
 }
 
 .product-display-container>.title p {
-  color: #A7E400;
+  color: #4b6600;
 }
 
 .product-left-marquee {
@@ -812,7 +934,6 @@ body::-webkit-scrollbar {
   height: auto;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .product-left-marquee .mySwiper {
@@ -852,6 +973,19 @@ body::-webkit-scrollbar {
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
   width: 100%;
+
+  /* 📌 핵심 보정: 활성화 전에는 화면에서 숨기고 절대 구역 격리 */
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* 📌 핵심 보정: active 클래스가 붙은 그리드 판넬만 2*2로 정교하게 표출 */
+.product-right-grid.active {
+  display: grid;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .prod-card {
@@ -873,7 +1007,10 @@ body::-webkit-scrollbar {
 .prod-img-box {
   position: relative;
   width: 100%;
-  padding-top: 100%;
+
+  /* 📌 [수정] padding-top 대신 최신 표준 속성으로 1:1 비율 명확히 강제 선언 */
+  aspect-ratio: 1 / 1;
+
   overflow: hidden;
   background-color: #151515;
 }
@@ -884,6 +1021,7 @@ body::-webkit-scrollbar {
   left: 0;
   width: 100%;
   height: 100%;
+  /* 📌 100% 높이가 부모의 aspect-ratio 안에서 정확히 고정됩니다 */
   object-fit: cover;
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
@@ -954,6 +1092,7 @@ body::-webkit-scrollbar {
   font-weight: 500;
   color: #ffffff;
   margin-bottom: 4px;
+  letter-spacing: -0.4px;
 }
 
 .prod-price {
@@ -979,16 +1118,20 @@ body::-webkit-scrollbar {
   display: flex;
   align-items: center;
   gap: 15px;
-  background: rgba(43, 43, 43, 0.9);
+  /* background: rgba(43, 43, 43, 0.9); */
   padding: 10px 25px;
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.next-btn>img {
+  transform: rotate(180deg);
+}
+
 .prod-pagination .page-num {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
+  color: #2B2B2B;
   transition: color 0.3s;
   padding: 0 4px;
 }
@@ -997,20 +1140,19 @@ body::-webkit-scrollbar {
 .prod-pagination .page-num:hover {
   color: #A7E400;
   font-weight: 800;
+  text-decoration: underline;
 }
 
 .prod-pagination .page-btn {
   background: transparent;
   border: none;
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 0 5px;
   transition: color 0.3s;
+  display: block;
 }
 
 .prod-pagination .page-btn:hover {
-  color: #A7E400;
+  background: #a7e40073;
+  border-radius: 100px;
 }
 
 /* 우측 정중앙 가둠 레이아웃 처리 */
@@ -1023,7 +1165,7 @@ body::-webkit-scrollbar {
 }
 
 .text-more {
-  border-color: #2b2b2b !important;
+  border: 3px solid #2b2b2b;
   color: #2b2b2b !important;
 }
 
@@ -1036,8 +1178,331 @@ body::-webkit-scrollbar {
 }
 
 /* ==========================================================================
+   📌 겟차 프로덕트 & 리뷰 섹션 코어 레이아웃 (Total Refactoring)
+   ========================================================================== */
+#getcha-review-section {
+  position: relative;
+  width: 100%;
+  min-height: 650px;
+  background-color: #A7E400; /* 브랜드 고유 네온 라임 컬러 */
+  padding: 80px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 1. 배경 흐르는 거대 타이포그래피 */
+.bg-marquee-wrap {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.12;
+}
+
+.bg-marquee-inner {
+  display: flex;
+  width: 200%;
+  animation: bgMarqueeFlow 25s linear infinite;
+}
+
+.bg-marquee-inner span {
+  font-size: 8rem;
+  font-weight: 900;
+  color: #000;
+  white-space: nowrap;
+  letter-spacing: -2px;
+}
+
+@keyframes bgMarqueeFlow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 2. 전경 레이아웃 컨테이너 */
+.review-display-container {
+  position: relative;
+  width: 100%;
+  max-width: 1320px;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 60px;
+  z-index: 10;
+}
+
+/* 🟢 왼쪽 상품 스위칭 카드 */
+.product-switch-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prod-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.prod-nav-btn:hover {
+  transform: scale(1.15);
+}
+
+.prod-nav-btn img {
+  width: 36px;
+  height: 36px;
+}
+
+.product-view-render {
+  text-align: center;
+  flex: 1;
+}
+
+.prod-img-sticker img {
+  max-width: 260px;
+  filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.15));
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.product-view-render:hover .prod-img-sticker img {
+  transform: rotate(-3deg) scale(1.03);
+}
+
+.product-view-render h3 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #2b2b2b;
+}
+
+.diagonal-arrow {
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.prod-hover-target:hover .diagonal-arrow,
+.product-view-render:hover .diagonal-arrow {
+  transform: translate(5px, -5px);
+}
+
+/* 🟢 오른쪽 대제목 & 리뷰 메인 보드 */
+.review-flow-box > .title {
+  display: flex;
+  gap: 15px;
+}
+
+.review-flow-box h2 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #2B2B2B;
+  margin-bottom: 60px;
+}
+
+.review-board-wrapper {
+  position: relative;
+  width: 100%;
+  background: transparent;
+}
+
+/* 둥둥 떠다니는 POT 캐릭터 배지 */
+.floating-pot-badge {
+  position: absolute;
+  top: -30px;
+  left: -40px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.floating-pot-badge img {
+  width: 100px;
+  height: auto;
+}
+
+.floating-motion {
+  animation: floatingEffect 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatingEffect {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-12px) rotate(4deg); }
+}
+
+/* 3. 리뷰 자동 가로 흐름 마키 컨테이너 및 페이지네이션 코어 */
+.review-marquee-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* 페이지네이션 연동을 위해 평소에는 모든 리스트를 차단 및 애니메이션 정지 */
+.review-marquee-inner {
+  display: none !important;
+  gap: 20px;
+  width: max-content;
+  animation: reviewScrollFlow 20s linear infinite;
+}
+
+/* 제이쿼리로 .active 클래스를 부여받은 단 하나의 리스트만 정주행 실행 */
+.review-marquee-inner.active {
+  display: flex !important;
+}
+
+/* 마우스 호버 시 마키 흐름 일시정지 규칙 */
+.review-marquee-container:hover .review-marquee-inner.active {
+  animation-play-state: paused;
+}
+
+@keyframes reviewScrollFlow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 4. 개별 리뷰 카드 기본 디자인 */
+.review-card {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden; /* 뒷면 상세 단락이 밑에서 튀어나올 때 격리 차단하는 벽 */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* cookie_review (순정 매핑 보존) */
+.review-pot-list>li:nth-child(1){ background: url(../images/review_cookie01.jpeg); }
+.review-pot-list>li:nth-child(2){ background: url(../images/review_cookie02.jpeg); }
+.review-pot-list>li:nth-child(3){ background: url(../images/review_cookie03.jpeg); }
+.review-pot-list>li:nth-child(4){ background: url(../images/review_cookie04.jpeg); }
+.review-pot-list>li:nth-child(5){ background: url(../images/review_cookie05.jpeg); }
+.review-pot-list>li:nth-child(6){ background: url(../images/review_cookie06.jpeg); }
+
+/* granola_review (순정 매핑 보존) */
+.review-gguk-list>li:nth-child(1){ background: url(../images/review_granola01.jpeg); }
+.review-gguk-list>li:nth-child(2){ background: url(../images/review_granola02.jpeg); }
+.review-gguk-list>li:nth-child(3){ background: url(../images/review_granola03.jpeg); }
+.review-gguk-list>li:nth-child(4){ background: url(../images/review_granola04.jpeg); }
+.review-gguk-list>li:nth-child(5){ background: url(../images/review_granola05.jpeg); }
+.review-gguk-list>li:nth-child(6){ background: url(../images/review_granola06.jpeg); }
+
+/* coffee_review (순정 매핑 보존 및 원본 선택자 오타 교정) */
+.review-ssock-list>li:nth-child(1){ background: url(../images/review_ssock_coffee01.jpeg); }
+.review-ssock-list>li:nth-child(2){ background: url(../images/review_ssock_coffee02.jpeg); }
+.review-ssock-list>li:nth-child(3){ background: url(../images/review_ssock_coffee03.jpeg); }
+.review-ssock-list>li:nth-child(4){ background: url(../images/review_ssock_coffee04.jpeg); }
+.review-ssock-list>li:nth-child(5){ background: url(../images/review_ssock_coffee05.jpeg); }
+.review-ssock-list>li:nth-child(6){ background: url(../images/review_ssock_coffee06.jpeg); }
+
+/* 5. 카드 앞면 서머리 영역 (겹침 현상 완전 제거 및 순수 배경 이미지 전면 대기) */
+.card-front-summary {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15); /* 평소엔 사진이 온전히 보이도록 어두운 필터를 최소화 */
+  box-sizing: border-box;
+}
+
+/* 6. 카드 뒷면 그라데이션 및 모든 상세 요소를 하단에 정갈하게 정렬 */
+.card-back-detail {
+  position: absolute;
+  bottom: -100%; /* 평소에는 하단으로 완전히 숨겨둠 */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  
+  /* 📌 아래에서 위로 올라오는 지정 그라데이션 적용 (#2b2b2b에서 완벽한 투명으로 축 형성) */
+  background: linear-gradient(to top, #000000 0%, rgba(43, 43, 43, 0) 100%);
+  
+  padding: 30px 24px 20px 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* 텍스트 순차 정렬을 위한 수직 정렬 */
+  justify-content: flex-end; /* 📌 타이틀, 별점, 상세내용을 모두 최하단 바닥으로 밀착 */
+  align-items: flex-start;
+  
+  transition: bottom 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* 부드러운 업라이징 애니메이션 */
+}
+
+.rv-title {
+  font-size: 1.25rem !important;
+  font-weight: 800;
+  color: #ffffff !important;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.rv-stars {
+  color: #A7E400 !important; /* 아이덴티티 네온 라임 스타 */
+  font-size: 0.95rem !important;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.rv-full-content {
+  font-size: 0.88rem;
+  color: #ffffff;
+  line-height: 1.5;
+  width: 100%;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 7. 마우스를 올리면 뒷면에 합쳐진 텍스트 컴포넌트 전체가 매끄럽게 등장 */
+.review-card:hover .card-back-detail {
+  bottom: 0;
+}
+
+/* ==========================================================================
+   📌 리뷰 섹션 모바일 & 태블릿 스마트 반응형 규칙
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .review-display-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .product-switch-box {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  #getcha-review-section {
+    padding: 50px 0;
+  }
+  .bg-marquee-inner span {
+    font-size: 5rem;
+  }
+  .review-display-container {
+    padding: 0 20px;
+  }
+  .review-flow-box h2 {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
    6. 콜라주 섹션 & 푸터 스타일
    ========================================================================== */
+
+#collage {
+  color: #2b2b2b;
+  text-align: center;
+}
+
 .collage-container {
   padding: 120px 5%;
   display: grid;
@@ -1144,6 +1609,7 @@ body::-webkit-scrollbar {
   border-radius: 30px;
   color: #fff;
   width: 280px;
+  margin-right: 12px;
 }
 
 .footer-newsletter button {
@@ -1171,17 +1637,6 @@ body::-webkit-scrollbar {
 /* ==========================================================================
    7. 우측 하단 고정 방사형 메뉴 (FAB) 레이아웃
    ========================================================================== */
-.fab-wrap {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  z-index: 5000;
-}
-
-.radial-menu {
-  position: relative;
-}
-
 .fab-main-btn {
   width: 60px;
   height: 60px;
@@ -1191,16 +1646,54 @@ body::-webkit-scrollbar {
   border: none;
   font-size: 2rem;
   font-weight: bold;
-  cursor: none;
+  cursor: pointer;
+  /* 📌 상용 구조에 맞춰 pointer로 수정 */
+}
+
+.fab-wrap {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 5000;
+
+  /* 📌 [핵심 1] 메뉴가 펼쳐졌을 때 튕겨 나간 자식 버튼들이 잘리거나 무시되지 않도록 
+     투명 박스 크기를 사방 200px로 넉넉하게 확보합니다. */
+  width: 200px;
+  height: 200px;
+
+  /* 📌 [핵심 2] 평소에 이 커진 투명 박스가 본문 영역을 가로막아 스크롤이나 클릭을 방해하지 않게 차단합니다. */
+  pointer-events: none;
+}
+
+.radial-menu {
+  /* 📌 기준점을 우측 하단 끝으로 명확히 고정합니다. */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
 }
 
 .menu-items {
   position: absolute;
   top: 0;
   left: 0;
-  pointer-events: none;
+  /* ❌ 기존의 pointer-events: none; 제거 (자식들의 이벤트를 막지 않도록) */
 }
 
+/* 📌 [핵심 3] 전체 틀은 통과시키되, 마우스가 실제로 닿아야 하는 
+   메인 버튼과 개별 링크 아이템들만 콕 집어서 마우스 이벤트를 확실히 부활시킵니다. */
+.fab-main-btn,
+.menu-items .item {
+  pointer-events: auto !important;
+}
+
+
+/* ==========================================================================
+   FAB 방사형 메뉴 전용 네온 초록색 호버 툴팁 박스 레이아웃
+   ========================================================================== */
+
+/* 버튼 호버 시 상위 z-index 부여 및 내부 툴팁 가시화 */
 .menu-items .item {
   position: absolute;
   width: 50px;
@@ -1208,13 +1701,77 @@ body::-webkit-scrollbar {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* 크로스 브라우징 안전 장치 */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   opacity: 0;
+  transition: z-index 0s, border-color 0.3s;
 }
+
+.menu-items .item:hover {
+  z-index: 9999;
+  /* 호버된 아이템의 툴팁이 다른 버튼을 가리지 않도록 최상위 격상 */
+  border-color: #A7E400;
+}
+
+/* 📌 네온 초록색 툴팁 기본 형태 (오른쪽으로 숨겨진 상태) */
+.fab-tooltip {
+  position: absolute;
+  right: 65px;
+  /* 동그란 아이콘 버튼 우측 기준에서 살짝 떨어지도록 배치 */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  /* 시안과 유사한 정갈한 직사각형 가로폭 */
+  padding: 18px 20px;
+  background-color: #A7E400;
+  /* 네온 초록 (라임 포인트) */
+  border-radius: 4px;
+  /* 시안의 각진 느낌을 살린 미세한 라운딩 */
+  box-shadow: 0 0 20px rgba(167, 228, 0, 0.45);
+  /* 시안 특유의 네온 발광 글로우 효과 */
+  text-align: left;
+  color: #000000;
+  /* 텍스트는 시안처럼 완벽한 블랙 */
+
+  /* 인터랙션 코어: 초기값 숨김 및 오른쪽(X축 15px) 배치 */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(15px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.35s;
+}
+
+/* 📌 호버 시: 오른쪽에서 왼쪽으로 부드럽게 미끄러져 들어옴 */
+.menu-items .item:hover .fab-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+  /* 원래 자리로 복귀 */
+}
+
+/* 툴팁 내부 텍스트 타이틀 스타일링 */
+.fab-tooltip strong {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+/* 툴팁 내부 설명문 스타일링 */
+.fab-tooltip span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
 
 /* ==========================================================================
    8. 반응형 미디어 쿼리 (1100px / 600px 브레이크포인트 오버라이딩)
@@ -1382,6 +1939,8 @@ body::-webkit-scrollbar {
 
   .footer-newsletter {
     width: 100%;
+    display: flex;
+
   }
 
   .footer-newsletter input {
