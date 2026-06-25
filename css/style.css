@@ -2113,3 +2113,43 @@ body::-webkit-scrollbar {
     width: 100%;
   }
 }
+
+/* 거북이들이 배치될 기준선 잡기 */
+.turtle-container {
+  position: relative;
+  width: 100%;
+  height: 0; /* 높이를 0으로 만들고 푸터 경계선에 바짝 붙입니다 */
+  max-width: 1300px;
+  margin: 0 auto;
+  z-index: 10; /* 푸터나 본문 콘텐츠보다 위에 뜨도록 설정 */
+}
+
+/* 1번 거북이: 화면 왼쪽에서 오른쪽으로 무한히 걸어가는 거북이 */
+.walking-turtle {
+  position: absolute;
+  bottom: -80px; /* 푸터 바로 위에 발이 닿도록 설정 */
+  width: 160px;
+  animation: walkAcross 20s linear infinite;
+}
+
+@keyframes walkAcross {
+  0% { left: -100px; transform: scaleX(1); } /* 화면 왼쪽 밖에서 시작 */
+  49% { left: calc(100% + 100px); transform: scaleX(1); } /* 오른쪽 밖으로 나감 */
+  50% { left: calc(100% + 100px); transform: scaleX(-1); } /* 방향 턴(반전) */
+  99% { left: -100px; transform: scaleX(-1); } /* 다시 왼쪽으로 컴백 */
+  100% { left: -100px; transform: scaleX(1); }
+}
+
+/* 2번 거북이: 푸터 우측 상단에 앉아서 위아래로 둥둥 떠 있는 귀여운 거북이 */
+.floating-turtle {
+  position: absolute;
+  bottom: -90px;
+  right: 5%;
+  width: 160px;
+  animation: turtleFloat 3s ease-in-out infinite;
+}
+
+@keyframes turtleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); } /* 위로 살짝 뜨면서 각도 틀기 */
+}
