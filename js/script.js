@@ -43,6 +43,35 @@ $(function () {
 
   initHorizontalScroll();
 
+
+  /* ==========================================================================
+     [추가] gsap07.html 기반 스마트 배경색 스위칭 엔진
+     ========================================================================== */
+  gsap.utils.toArray("#portfolio, #brand-intro, #product_banner").forEach((item) => {
+    let color = item.getAttribute("data-bgcolor");
+
+    if (color) {
+      ScrollTrigger.create({
+        trigger: item,
+        start: "top 50%",    // 화면 절반 지점에 섹션이 도달했을 때 전환 시작
+        end: "bottom 50%",
+        markers: false,      // 디버깅용 가이드라인 (필요 시 true로 변경 가능)
+
+        // 정방향 내릴 때 배경색 변경
+        onEnter: () => gsap.to("body", {
+          backgroundColor: color,
+          duration: 0.3,
+          ease: "power2.out"
+        }),
+        // 역방향 올릴 때 이전 배경색으로 복구
+        onEnterBack: () => gsap.to("body", {
+          backgroundColor: color,
+          duration: 0.5,
+          ease: "power2.out"
+        }),
+      });
+    }
+  });
   /* ==========================================================================
        4. 우측 하단 고정 방사형 메뉴 (Radial FAB) 애니메이션 매커니즘 교정 (툴팁 마비 버그 수정)
        ========================================================================== */
@@ -52,26 +81,24 @@ $(function () {
 
   $mainBtn.on('click', function (e) {
     e.preventDefault();
-    e.stopPropagation(); // 부모 레이어로 클릭이 번지는 현상 차단
+    e.stopPropagation();
     menuActive = !menuActive;
 
     if (menuActive) {
-      // + 버튼을 45도 회전시켜 X 모양으로 변경
       gsap.to($mainBtn, { rotation: 45, duration: 0.3, ease: "power2.out" });
 
-      // 각 아이콘 버튼들을 화면 안쪽으로 사방 전개 (겹침 방지 좌표 고정)
       gsap.to($('.gift'), { opacity: 1, x: -75, y: -75, duration: 0.4, ease: "back.out(1.5)" });
       gsap.to($('.more_matcha'), { opacity: 1, x: -115, y: 0, duration: 0.4, ease: "back.out(1.5)" });
       gsap.to($('.faq'), { opacity: 1, x: 0, y: -115, duration: 0.4, ease: "back.out(1.5)" });
     } else {
-      // 📌 [수정] 다시 접을 때 원위치 리셋 및 인라인 opacity 속성을 완전히 제거하여 CSS 호버 엔진이 작동하도록 복구
+
       gsap.to($mainBtn, { rotation: 0, duration: 0.3, ease: "power2.out" });
       gsap.to($menuItems, {
         x: 0,
         y: 0,
         duration: 0.3,
         ease: "power2.in",
-        clearProps: "all" // 🔥 핵심: 인라인 스타일에 남은 opacity, transform을 완전히 삭제하여 CSS 순정 상태로 환원합니다.
+        clearProps: "all"
       });
     }
   });
@@ -139,34 +166,28 @@ $(function () {
   $pagination.on('click', '.page-num', function () {
     if ($(this).hasClass('active')) return;
 
-    // 1. 페이지네이션 활성화 UI 변경
     $('.prod-pagination .page-num').removeClass('active');
     $(this).addClass('active');
 
-    // 2. 클릭한 페이지 번호 인덱스 파악 (0부터 시작)
     const pageIndex = $('.prod-pagination .page-num').index(this);
 
-    // 3. 해당하는 상품 그리드 판넬만 스위칭
     $grids.removeClass('active');
     $grids.eq(pageIndex).addClass('active');
 
     console.log("선택된 상품 페이지: ", $(this).text());
   });
 
-  // 이전(<) / 다음(>) 화살표 버튼 클릭 인터랙션 결합
+
   $pagination.on('click', '.page-btn', function () {
     const $currentPage = $('.prod-pagination .page-num.active');
     let $targetPage;
 
     if ($(this).hasClass('prev-btn')) {
-      // 이전 버튼 클릭 시
       $targetPage = $currentPage.prev('.page-num');
     } else if ($(this).hasClass('next-btn')) {
-      // 다음 버튼 클릭 시
       $targetPage = $currentPage.next('.page-num');
     }
 
-    // 이동할 대상 페이지가 존재할 때만 클릭 이벤트 강제 트리거 구동
     if ($targetPage && $targetPage.length) {
       $targetPage.trigger('click');
     }
@@ -213,7 +234,6 @@ gsap.utils.toArray(".reveal").forEach(item => {
   });
 });
 
-// 우측 이미지 박스 호버 시 부모 패널 배경색 변경 인터랙션
 $('.right-img').on('mouseenter', function () {
   $(this).closest('.panel').addClass('active-hover');
 });
@@ -325,38 +345,64 @@ var swiper = new Swiper(".mySwiper", {
 // ==========================================================================
 // 📌 겟차 상품-리뷰 멀티 마키 리스트 스위칭 엔진 (페이지네이션 방식)
 // ==========================================================================
-$(document).ready(function() {
-  // 왼쪽 상품 뷰어에 순차적으로 바인딩할 데이터 세트
+$(document).ready(function () {
+  // 1. 각 제품 콘셉트에 맞춘 [상품 스티커 + 3D 캐릭터 오브제] 1:1 매칭 데이터 확장
   const reviewProducts = [
-    { name: "팟 말차 쿠키", img: "images/pot_cookie_sticker.png" },
-    { name: "꾹 말차 그래놀라", img: "images/gguk_granola_sticker.png" },
-    { name: "쏙 말차 에스프레소", img: "images/ssock_coffee_sticker.png" },
-    { name: "SYUK 단백질 쉐이크", img: "images/syuk_proteinshake_front.jpeg" }
+    {
+      name: "팟 말차 쿠키",
+      img: "images/pot_cookie_sticker.png",
+      characterImg: "images/3D_pot.png" // 3D 팟 캐릭터 이미지
+    },
+    {
+      name: "꾹 말차 그래놀라",
+      img: "images/gguk_granola_sticker.png",
+      characterImg: "images/3D_gguk.png" // 3D 꾹 캐릭터 이미지 (파일명 대소문자 매칭 필)
+    },
+    {
+      name: "쏙 말차 에스프레소",
+      img: "images/ssock_coffee_sticker.png",
+      characterImg: "images/3D_ssock.png" // 3D 쏙 캐릭터 이미지
+    },
+    {
+      name: "SYUK 단백질 쉐이크",
+      img: "images/syuk_proteinbar_sticker.png",
+      characterImg: "images/3D_syuk.png" // 3D 슉 캐릭터 이미지
+    }
   ];
 
   let currentReviewIdx = 0;
   const $allMarqueeLists = $(".review-marquee-inner");
 
+  // 2. 통합 리렌더링 제어 엔진
   function changeReviewProductPage(nextIdx) {
     // 인덱스가 범위를 초과하면 무한 로테이션이 되도록 배열 길이 기반 나머지 연산 처리
     currentReviewIdx = (nextIdx + reviewProducts.length) % reviewProducts.length;
     const currentProd = reviewProducts[currentReviewIdx];
 
-    // 1. 왼쪽 상품 뷰어 컴포넌트 실시간 업데이트
+    // [수정 핵심] 우측 리뷰 보드에서 둥둥 떠다니는 3D 캐릭터 이미지 실시간 변경
+    // HTML 구조의 .floating-pot-badge 내부 img 태그를 타겟팅합니다.
+    $(".review-board-wrapper .floating-pot-badge img").attr("src", currentProd.characterImg).attr("alt", currentProd.name + " 캐릭터");
+
+    // 좌측 메인 상품 이미지(스티커) 및 alt 텍스트 매핑
     $("#render-prod-img").attr("src", currentProd.img).attr("alt", currentProd.name);
+
+    // 상품명 텍스트 동적 렌더링
     $("#render-prod-name").text(currentProd.name);
 
-    // 2. 오른쪽 리뷰 마키 보드 스위칭 (.active 클래스 무빙 탈부착)
+    // 우측 흘러가는 마키 리뷰 카드 리스트 스위칭 active 토글
     $allMarqueeLists.removeClass("active");
     $allMarqueeLists.eq(currentReviewIdx).addClass("active");
   }
 
-  // 기존 원본 이전/다음 버튼 이벤트 중복 방지 처리 후 깔끔하게 연결
-  $("#getcha-review-section .next-btn").off("click").on("click", function() {
+  // 3. 다음 상품 보기 인터랙션 바인딩
+  $("#getcha-review-section .next-btn").off("click").on("click", function (e) {
+    e.preventDefault();
     changeReviewProductPage(currentReviewIdx + 1);
   });
 
-  $("#getcha-review-section .prev-btn").off("click").on("click", function() {
+  // 4. 이전 상품 보기 인터랙션 바인딩
+  $("#getcha-review-section .prev-btn").off("click").on("click", function (e) {
+    e.preventDefault();
     changeReviewProductPage(currentReviewIdx - 1);
   });
 });
