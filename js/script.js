@@ -364,7 +364,7 @@ $(document).ready(function () {
       characterImg: "images/3D_ssock.png" // 3D 쏙 캐릭터 이미지
     },
     {
-      name: "SYUK 단백질 쉐이크",
+      name: "SYUK 단백질바",
       img: "images/syuk_proteinbar_sticker.png",
       characterImg: "images/3D_syuk.png" // 3D 슉 캐릭터 이미지
     }
