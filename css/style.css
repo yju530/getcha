@@ -1978,7 +1978,7 @@ body::-webkit-scrollbar {
   pointer-events: none;
 }
 
-.talk{
+.talk {
   display: block;
   background-color: #fff;
   color: #2B2B2B;
@@ -2096,6 +2096,7 @@ body::-webkit-scrollbar {
     transform: translateY(-1px) rotate(-1deg);
   }
 }
+
 @keyframes talkfloat {
   0% {
     transform: translateY(0) rotate(-1deg);
@@ -2119,6 +2120,13 @@ body::-webkit-scrollbar {
   .turtle-container {
     height: 180px;
     /* 모바일에서도 파도가 찌그러지지 않고 풍성하게 차오를 공간 확보 */
+  }
+
+  .talk {
+    font-size: 1vw;
+    padding: 12px;
+    right: 20%;
+    top: 0px;
   }
 
   /* 🌊 2. 진한 녹색 뒤파도(bg-wave) & 연두색 앞파도(fg-wave) 모바일 스케일 동기화 */
