@@ -1705,7 +1705,7 @@ body::-webkit-scrollbar {
   left: 50%;
   transform: translate(-50%, -30%);
   /* 최초엔 약간 아래쪽에 둠 (위로 스르륵 올라오는 효과) */
-  font-size: 2rem;
+  font-size: 2vw;
   /* 아이콘 크기 */
   color: #ffffff;
   /* 아이콘 색상 */
