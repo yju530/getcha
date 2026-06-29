@@ -704,6 +704,19 @@ body::-webkit-scrollbar {
   transform: translateZ(0) scale(1.7);
 }
 
+.split {
+  opacity: 0;
+  text-align: center;
+  color: rgb(14, 16, 15);
+  font-size: 2rem;
+  will-change: transform;
+  color: #0e100f;
+}
+
+.split * {
+  will-change: transform;
+}
+
 /* ==========================================================================
    4. 가로 스크롤 슬라이더 섹션
    ========================================================================== */
