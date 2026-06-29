@@ -704,6 +704,11 @@ body::-webkit-scrollbar {
   transform: translateZ(0) scale(1.7);
 }
 
+.container {
+  width: 90vw;
+  margin-top: 40vh;
+}
+
 .split {
   opacity: 0;
   text-align: center;
